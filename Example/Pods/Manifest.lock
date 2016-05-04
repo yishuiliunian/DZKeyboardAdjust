@@ -1,0 +1,21 @@
+PODS:
+  - DZKeyboardAdjust (0.1.0)
+  - FBSnapshotTestCase (2.0.7):
+    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
+  - FBSnapshotTestCase/Core (2.0.7)
+  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+    - FBSnapshotTestCase/Core
+
+DEPENDENCIES:
+  - DZKeyboardAdjust (from `../`)
+  - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  DZKeyboardAdjust:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DZKeyboardAdjust: 668f0c8420c7778b21f9c63a4e9fe41e0ee62842
+  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+
+COCOAPODS: 0.39.0

@@ -1,0 +1,25 @@
+{
+  "name": "DZKeyboardAdjust",
+  "version": "0.1.0",
+  "summary": "A short description of DZKeyboardAdjust.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/DZKeyboardAdjust",
+  "license": "MIT",
+  "authors": {
+    "stonedong": "yishuiliunian@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/DZKeyboardAdjust.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "DZKeyboardAdjust": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}
