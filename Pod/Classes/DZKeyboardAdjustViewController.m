@@ -7,7 +7,7 @@
 //
 
 #import "DZKeyboardAdjustViewController.h"
-#import <DZKeyboardManager.h>
+#import "DZKeyboardManager.h"
 @interface DZKeyboardAdjustViewController () <DZKeyboardChangedProtocol, UIGestureRecognizerDelegate>
 
 @end
@@ -17,6 +17,7 @@
 
     UISwipeGestureRecognizer* _swipeDown;
     UIView* _maskView;
+    BOOL* _firstLayout;
 }
 @synthesize contentView = _contentView;
 - (void) dealloc
@@ -31,8 +32,8 @@
         return self;
     }
     _pullDownToHiddenEnable = YES;
+    _firstLayout =YES;
     return self;
-
 }
 
 - (UIView*) contentView
@@ -51,6 +52,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self contentView];
     [self.view addSubview:_contentView];
     
@@ -117,25 +119,24 @@
     CGRectDivide(self.view.bounds, &keyR, &contentR, CGRectGetHeight(self.view.frame) - height , CGRectMaxYEdge);
 
     UIView* view = _contentView;
-    
     [UIView animateWithDuration:transition.animationDuration animations:^{
         view.frame = contentR;
         [_contentView layoutSubviews];
     }];
-   
 }
+- (void) viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    if (_firstLayout) {
+        _contentView.frame = self.view.bounds;
+        _firstLayout = NO;
+    }
+}
+
 
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _contentView.frame = self.view.bounds;
-}
-
-
-
-- (void) viewWillLayoutSubviews
-{
-    [super viewWillLayoutSubviews];
 }
 
 @end
