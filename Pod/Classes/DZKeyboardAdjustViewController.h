@@ -10,6 +10,5 @@
 
 @interface DZKeyboardAdjustViewController : UIViewController
 @property (nonatomic, strong) UIView* contentView;
-@property (nonatomic, assign) BOOL pullDownToHiddenEnable;
 - (void) loadContentView;
 @end

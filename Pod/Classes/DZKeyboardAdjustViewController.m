@@ -15,8 +15,6 @@
 @implementation DZKeyboardAdjustViewController
 {
 
-    UISwipeGestureRecognizer* _swipeDown;
-    UIView* _maskView;
     BOOL* _firstLayout;
 }
 @synthesize contentView = _contentView;
@@ -31,7 +29,6 @@
     if (!self) {
         return self;
     }
-    _pullDownToHiddenEnable = YES;
     _firstLayout =YES;
     return self;
 }
@@ -55,42 +52,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self contentView];
     [self.view addSubview:_contentView];
-    
-    UISwipeGestureRecognizer* panG = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(pullDownHanle:)];
-    panG.direction = UISwipeGestureRecognizerDirectionDown;
-
-    
-    [_contentView addGestureRecognizer:panG];
-    panG.enabled = _pullDownToHiddenEnable;
-    _swipeDown = panG;
-    _swipeDown.delegate = self;
-    _maskView.userInteractionEnabled = YES;
 }
-
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
-}
-
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    return YES;
-}
-- (void) setPullDownToHiddenEnable:(BOOL)pullDownToHiddenEnable
-{
-    _pullDownToHiddenEnable = pullDownToHiddenEnable;
-    _swipeDown.enabled = _pullDownToHiddenEnable;
-}
-
-- (void) pullDownHanle:(UIPanGestureRecognizer*)pan
-{
-    if (pan.state == UIGestureRecognizerStateRecognized) {
-        for (UIView* sv  in _contentView.subviews) {
-            [sv resignFirstResponder];
-        }
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
