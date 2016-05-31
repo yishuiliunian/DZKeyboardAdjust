@@ -7,7 +7,6 @@
 //
 
 #import "DZKeyboardAdjustViewController.h"
-#import "DZKeyboardManager.h"
 @interface DZKeyboardAdjustViewController () <DZKeyboardChangedProtocol, UIGestureRecognizerDelegate>
 
 @end
@@ -69,9 +68,22 @@
     [DZKeyboardShareManager removeObserver:self];
 }
 
+- (void) wllResponseToKeyboardChanged:(DZKeyboardTransition)transition
+{
+    
+}
 
+- (void) didResponseToKeyboardChanged:(DZKeyboardTransition)transition
+{
+    
+}
+- (BOOL) transiztionUseAnimation
+{
+    return YES;
+}
 - (void) keyboardChanged:(DZKeyboardTransition)transition
 {
+    [self wllResponseToKeyboardChanged:transition];
     CGRect contentR;
     CGRect keyR;
     CGRect endFrame = transition.endFrame;
@@ -81,10 +93,20 @@
     CGRectDivide(self.view.bounds, &keyR, &contentR, CGRectGetHeight(self.view.frame) - height , CGRectMaxYEdge);
 
     UIView* view = _contentView;
-    [UIView animateWithDuration:transition.animationDuration animations:^{
+    void(^AnimationBlock)(void) = ^(void) {
         view.frame = contentR;
         [_contentView layoutSubviews];
-    }];
+    };
+    
+    void(^FinishBlock)(BOOL) = ^(BOOL finish) {
+        [self didResponseToKeyboardChanged:transition];
+    };
+    if ([self transiztionUseAnimation]) {
+        [UIView animateWithDuration:transition.animationDuration animations:AnimationBlock completion:FinishBlock];
+    } else {
+        AnimationBlock();
+        FinishBlock(YES);
+    }
 }
 - (void) viewWillLayoutSubviews
 {
@@ -94,7 +116,6 @@
         _firstLayout = NO;
     }
 }
-
 
 - (void) viewWillAppear:(BOOL)animated
 {
