@@ -9,5 +9,4 @@
 #ifndef DZKeyboardAdjust_h
 #define DZKeyboardAdjust_h
 
-#import "DZKeyboardAdjustViewController.h"
 #endif /* DZKeyboardAdjust_h */
